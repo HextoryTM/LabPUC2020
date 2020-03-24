@@ -23,9 +23,13 @@ public class guidedBomb : MonoBehaviour
         {
             Explode();
         }
-
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.gameObject.CompareTag("Player"))
+            Explode();
+    }
 
     void Explode()
     {
