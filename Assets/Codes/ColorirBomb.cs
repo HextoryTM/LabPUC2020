@@ -6,18 +6,15 @@ using UnityEngine;
 public class ColorirBomb : MonoBehaviour
 {
     private Rigidbody rb;
+    private Renderer render;
     private UnityEngine.Random random;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        render = GetComponent<Renderer>();
+        render.material.color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
     }
 
     private void OnCollisionEnter(Collision other)
@@ -46,7 +43,7 @@ public class ColorirBomb : MonoBehaviour
     private void Colorir(Renderer rend)
     {
         Color oCor = rend.material.color;
-        oCor = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+        oCor = render.material.color;
         rend.material.color = oCor;
     }
 }
