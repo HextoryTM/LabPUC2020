@@ -19,10 +19,12 @@ public class guidedBomb : MonoBehaviour
         transform.LookAt(target.transform);
         rdb.AddForce(transform.forward*50);
 
+        
         if (Vector3.Distance(transform.position, target.transform.position) < 1)
         {
             Explode();
         }
+        
     }
 
     private void OnCollisionEnter(Collision collision)

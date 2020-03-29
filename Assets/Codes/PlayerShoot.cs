@@ -22,6 +22,8 @@ public class PlayerShoot : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha6)) indexWeapon = 5;
         if (Input.GetKey(KeyCode.Alpha7)) indexWeapon = 6;
         if (Input.GetKey(KeyCode.Alpha8)) indexWeapon = 7;
+        if (Input.GetKey(KeyCode.Alpha9)) indexWeapon = 8;
+
         //se aperta tiro instancia o prefab
         if (Input.GetButtonDown("Fire1"))
         {

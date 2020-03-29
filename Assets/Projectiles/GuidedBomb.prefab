@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3076110161118753508}
   - component: {fileID: 3076110161118753511}
   - component: {fileID: 3076110161118753510}
-  - component: {fileID: 3076110161118753513}
   - component: {fileID: 3076110161118753509}
   - component: {fileID: -7127416188174710521}
+  - component: {fileID: 7796093252819405544}
   m_Layer: 2
   m_Name: GuidedBomb
   m_TagString: Untagged
@@ -82,19 +82,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &3076110161118753513
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3076110161118753512}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3076110161118753509
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,6 +112,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   bombForce: 1000
+--- !u!135 &7796093252819405544
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3076110161118753512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3901164905219627013
 PrefabInstance:
   m_ObjectHideFlags: 0
