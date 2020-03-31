@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-
+    public GameObject ExplosionPrefab;
     public float bombForce=1000;
     // Start is called before the first frame update
     void Start()
@@ -14,7 +14,8 @@ public class Bomb : MonoBehaviour
 
     void Explode()
     {
-        print("Boom!");
+        GameObject explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+        Destroy(explosion, 3);
         Destroy(gameObject);
         RaycastHit[] hits;
         hits=Physics.SphereCastAll(transform.position, 5, Vector3.up, 10);

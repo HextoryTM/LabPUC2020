@@ -39,11 +39,25 @@ public class PlayerShoot : MonoBehaviour
 
             //adiciona uma forca no objeto
             myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
-
-
         }
 
-        if(Physics.Raycast(transform.position,transform.forward,out RaycastHit hit))
+        if (Input.GetButton("Fire2"))
+        {
+            //instancia o objeto e guarda a referencia
+            GameObject myprojectile =
+            Instantiate(projectilesPrefab[indexWeapon], transform.position + transform.forward,
+            Quaternion.identity);
+
+            if (myprojectile.GetComponent<guidedBomb>())
+            {
+                myprojectile.GetComponent<guidedBomb>().target = laserpoint;
+            }
+
+            //adiciona uma forca no objeto
+            myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+        }
+
+        if (Physics.Raycast(transform.position,transform.forward,out RaycastHit hit))
         {
             laserpoint.transform.position = hit.point;
         }
