@@ -44,7 +44,11 @@ public class Detection : MonoBehaviour
             foreach (RaycastHit hit in hits)
             {
                 if (hit.rigidbody)
+                {
+                    hit.rigidbody.isKinematic = false;
                     hit.rigidbody.AddExplosionForce(bombForce, transform.position, 10);
+                    hit.collider.gameObject.SendMessage("GetDamage", SendMessageOptions.DontRequireReceiver);
+                }
             }
         }
     }
