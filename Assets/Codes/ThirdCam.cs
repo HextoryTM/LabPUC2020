@@ -25,13 +25,25 @@ public class ThirdCam : MonoBehaviour
     void Update()
     {
         fakeObject.transform.position = Vector3.Lerp(fakeObject.transform.position, player.transform.position, Time.deltaTime * 5);
-        transform.position = fakeObject.transform.position + fakeObject.transform.forward * offset.z + fakeObject.transform.up * offset.y;
 
-        transform.LookAt(player.transform.position + lookOffset);
+        Vector3 dirBack = transform.position - (player.transform.position + lookOffset); //calcular a distancia para tras da camera
+        float distanceToHit = 10;
+        if (Physics.Raycast(player.transform.position + lookOffset, dirBack, out RaycastHit hit, 10, 65279)) //Raycast para ver o limite da camera
+        {
+            distanceToHit = hit.distance;
+            Debug.DrawLine(player.transform.position + lookOffset, hit.point);
+        }
 
-        scrollOffset = Mathf.Clamp(scrollOffset + Input.mouseScrollDelta.y, -6, -2);
+        Vector3 backVector = (fakeObject.transform.forward * offset.z); //vetor de distanciamento
+        backVector = Vector3.ClampMagnitude(backVector, distanceToHit - 0.5f); //limite de tamanho do vetor
+
+        transform.position = fakeObject.transform.position + backVector + fakeObject.transform.up * offset.y; //aplicacao da posicao da camera
+
+        transform.LookAt(player.transform.position + lookOffset); //olhar para o jogador
+
+        scrollOffset = Mathf.Clamp(scrollOffset + Input.mouseScrollDelta.y, -6, -2); //ajusta de dinstancia pelo scroll
         offset = new Vector3(0, offset.y, scrollOffset);
 
-        fakeObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
+        fakeObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0)); //aplicacao da rotacao
     }
 }
