@@ -9,7 +9,8 @@ public class ThirdWalk : MonoBehaviour
         Idle,
         Walk,
         Jump,
-        Die
+        Die,
+        Attack,
     }
 
     public States state;
@@ -43,6 +44,14 @@ public class ThirdWalk : MonoBehaviour
 
         //rb.AddForce(move * (moveForce / (rb.velocity.magnitude + 1))); //* speed);
         rb.AddForce(move * moveForce * speed);
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            StartCoroutine(Attack());
+        }
     }
 
     IEnumerator Idle()
@@ -90,5 +99,17 @@ public class ThirdWalk : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         //saida do estado
+    }
+
+    IEnumerator Attack()
+    {
+        //equivalente ao Start
+        state = States.Attack;
+        anim.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(0.5f);
+
+        //saida do estado
+        StartCoroutine(Idle());
     }
 }
