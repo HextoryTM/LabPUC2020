@@ -14,9 +14,11 @@ public class ItemGrabber : MonoBehaviour
             if (weaponGrabbed)
             {
                 weaponGrabbed.transform.parent = null;
-                weaponGrabbed.gameObject.layer = default;
 
                 weaponGrabbed.GetComponent<Rigidbody>().isKinematic = false;
+                weaponGrabbed.transform.Translate(Vector3.right);
+
+                weaponGrabbed.gameObject.layer = default;
             }
 
             weaponGrabbed = other.gameObject;
@@ -24,11 +26,8 @@ public class ItemGrabber : MonoBehaviour
             other.gameObject.layer = transform.gameObject.layer;
 
             other.transform.parent = handPosition; //coloca como filho da mao
-
             other.transform.localPosition = Vector3.zero; //vai pra posicao da mao
-
             other.GetComponent<Rigidbody>().isKinematic = true; //desativa as fisicas do rigidbody
-
             other.transform.localRotation = Quaternion.identity; //reseta a rotacao da espada
         }
     }
