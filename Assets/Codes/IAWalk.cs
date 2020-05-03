@@ -11,6 +11,9 @@ public class IAWalk : MonoBehaviour
     public Vector3 patrolPos;
     public float stoppedTime;
 
+    public GameObject Axe;
+    private bool hitting;
+
     public enum IAState
     {
         Idle,
@@ -63,9 +66,14 @@ public class IAWalk : MonoBehaviour
         agent.isStopped = true;
         anim.SetBool("Attacking", false);
 
-        if(Vector3.Distance(transform.position, target.transform.position) > 5)
+        if(Vector3.Distance(transform.position, target.transform.position) > 3)
         {
             currentState = IAState.Patrol;
+        }
+
+        if (Vector3.Distance(transform.position, target.transform.position) < 3)
+        {
+            currentState = IAState.Attacking;
         }
     }
 
@@ -86,6 +94,15 @@ public class IAWalk : MonoBehaviour
     {
         agent.isStopped = true;
         anim.SetBool("Attacking", true);
+
+        if (Vector3.Distance(transform.position, target.transform.position) < 3)
+        {
+            if (!hitting)
+            {
+                Axe.GetComponent<PhisicalWeapon>().hitting = false;
+                StartCoroutine(Attack());
+            }
+        }
 
         if (Vector3.Distance(transform.position, target.transform.position) > 5)
         {
@@ -108,7 +125,11 @@ public class IAWalk : MonoBehaviour
         anim.SetBool("Attacking", false);
         anim.SetBool("Dying", true);
 
+        GetComponent<Collider>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
+        Axe.GetComponent<Collider>().enabled = false;
+        GetComponent<DamageControl>().enabled = false;
+        this.enabled = false;
     }
 
     void StatePatrol()
@@ -132,5 +153,18 @@ public class IAWalk : MonoBehaviour
         {
             currentState = IAState.Attacking;
         }
+    }
+
+    IEnumerator Attack()
+    {
+        //equivalente ao Start
+        anim.SetTrigger("Hitting");
+        hitting = true;
+
+        yield return new WaitForSeconds(2f);
+
+        //saida do estado
+        hitting = false;
+        currentState = IAState.Idle;
     }
 }

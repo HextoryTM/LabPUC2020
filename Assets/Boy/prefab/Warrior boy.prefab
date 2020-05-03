@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6915612169152866767}
   m_Layer: 8
   m_Name: Warrior boy
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,6 +91,7 @@ MonoBehaviour:
   rb: {fileID: 1600905162}
   moveForce: 70
   speed: 20
+  weaponSlot: {fileID: 642680678376012588}
 --- !u!136 &1600905161
 CapsuleCollider:
   m_ObjectHideFlags: 0

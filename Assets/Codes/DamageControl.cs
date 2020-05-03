@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DamageControl : MonoBehaviour
+public class DamageControl : MonoBehaviour, IDamagable
 {
     public IAWalk iaWalk;
-    int timesHitted = 0;
+    public int timesHitted = 0;
+
+    public SkinnedMeshRenderer render;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,7 @@ public class DamageControl : MonoBehaviour
     {
         if (collision.collider.CompareTag("Projectile"))
         {
+            Debug.Log("ProjectHit");
             Destroy(collision.gameObject);
             GetDamageProjectile();
         }
@@ -46,4 +50,26 @@ public class DamageControl : MonoBehaviour
             iaWalk.currentState = IAWalk.IAState.Dying;
         }
     }
+
+    public void Damage()
+    {
+        Debug.Log("Enemy Damage");
+        GetDamageProjectile();
+        StartCoroutine(Blink());
+    }
+
+    IEnumerator Blink()
+    {
+        int blinks = 10;
+
+        while (blinks > 0)
+        {
+            render.enabled = !render.enabled;
+            yield return new WaitForSeconds(0.1f);
+            blinks--;
+        }
+
+        render.enabled = true;
+    }
+    
 }

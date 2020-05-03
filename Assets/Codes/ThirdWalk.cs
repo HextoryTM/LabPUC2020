@@ -11,6 +11,7 @@ public class ThirdWalk : MonoBehaviour
         Jump,
         Die,
         Attack,
+        Hitted,
     }
 
     public States state;
@@ -22,6 +23,8 @@ public class ThirdWalk : MonoBehaviour
     public float speed = 20f;
     private Vector3 direction;
     private GameObject camRefObj;
+
+    public GameObject weaponSlot;
 
     void Start()
     {
@@ -94,7 +97,6 @@ public class ThirdWalk : MonoBehaviour
                 StartCoroutine(Idle());
             }
 
-
             //
             yield return new WaitForEndOfFrame();
         }
@@ -111,5 +113,23 @@ public class ThirdWalk : MonoBehaviour
 
         //saida do estado
         StartCoroutine(Idle());
+    }
+
+    IEnumerator Hitted()
+    {
+        //equivalente ao Start
+        state = States.Hitted;
+
+        yield return new WaitForEndOfFrame();
+
+        //saida do estado
+        StartCoroutine(Idle());
+    }
+
+    public void Damage()
+    {
+        anim.SetTrigger("Hitted");
+        StopAllCoroutines();
+        StartCoroutine(Hitted());
     }
 }

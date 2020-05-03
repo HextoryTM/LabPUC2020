@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectDamage : MonoBehaviour
+public class ObjectDamage : MonoBehaviour, IDamagable
 {
     public MeshRenderer render;
 
@@ -25,6 +25,5 @@ public class ObjectDamage : MonoBehaviour
         }
 
         render.enabled = true;
-        
     }
 }
