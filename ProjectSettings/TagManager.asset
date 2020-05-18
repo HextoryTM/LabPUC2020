@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Projectile
   - WeaponDropped
+  - IAController
+  - PlayerCanvas
+  - GameManager
   layers:
   - Default
   - TransparentFX

@@ -33,6 +33,7 @@ public class ItemGrabber : MonoBehaviour
             other.GetComponent<Rigidbody>().isKinematic = true; //desativa as fisicas do rigidbody
             other.transform.localRotation = Quaternion.identity; //reseta a rotacao da espada
 
+            other.GetComponent<Collider>().enabled = false;
             other.GetComponent<PhisicalWeapon>().canDamage = true;
         }
     }

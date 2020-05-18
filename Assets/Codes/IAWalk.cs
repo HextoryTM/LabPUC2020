@@ -11,8 +11,13 @@ public class IAWalk : MonoBehaviour
     public Vector3 patrolPos;
     public float stoppedTime;
 
+    public Collider attackColl;
     public GameObject Axe;
+    private Collider axeColl;
     private bool hitting;
+    public GameObject player;
+
+    private bool oneHit = false;
 
     public enum IAState
     {
@@ -29,10 +34,17 @@ public class IAWalk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        if (Axe != null)
+        {
+            axeColl = Axe.GetComponent<Collider>();
+            axeColl.enabled = false;
+        }
+        
+            
         patrolPos = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (currentState)
@@ -97,10 +109,23 @@ public class IAWalk : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < 3)
         {
-            if (!hitting)
+            if (player)
             {
-                Axe.GetComponent<PhisicalWeapon>().hitting = false;
-                StartCoroutine(Attack());
+                if (hitting)
+                {
+                    if (oneHit)
+                    {
+                        player.SendMessage("Damage", SendMessageOptions.DontRequireReceiver);
+
+                        oneHit = false;
+                    }
+                }
+
+                if (!hitting)
+                {
+                    //Axe.GetComponent<PhisicalWeapon>().hitting = false;//
+                    StartCoroutine(Attack2());
+                }
             }
         }
 
@@ -125,6 +150,7 @@ public class IAWalk : MonoBehaviour
         anim.SetBool("Attacking", false);
         anim.SetBool("Dying", true);
 
+        StartCoroutine(Destroy());
         GetComponent<Collider>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
         Axe.GetComponent<Collider>().enabled = false;
@@ -143,7 +169,7 @@ public class IAWalk : MonoBehaviour
         {
             stoppedTime += Time.deltaTime;
         }
-        if(stoppedTime > 3f)
+        if (stoppedTime > 3f)
         {
             stoppedTime = 0f;
             patrolPos = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
@@ -158,7 +184,24 @@ public class IAWalk : MonoBehaviour
     IEnumerator Attack()
     {
         //equivalente ao Start
+        axeColl.enabled = true;
         anim.SetTrigger("Hitting");
+        hitting = true;
+
+
+        yield return new WaitForSeconds(2f);
+
+        //saida do estado
+        axeColl.enabled = false;
+        hitting = false;
+        currentState = IAState.Idle;
+    }
+
+    IEnumerator Attack2()
+    {
+        //equivalente ao start
+        anim.SetTrigger("Hitting");
+        oneHit = true;
         hitting = true;
 
         yield return new WaitForSeconds(2f);
@@ -167,4 +210,28 @@ public class IAWalk : MonoBehaviour
         hitting = false;
         currentState = IAState.Idle;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            player = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            player = null;
+        }
+    }
+
+    IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(3f);
+
+        Destroy(gameObject);
+    }
+
 }

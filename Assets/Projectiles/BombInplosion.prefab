@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b469df4d1b7bb44db43dc81e22eade3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExplosionPrefab: {fileID: 5961628465427955386, guid: dd2ccc13402d2d844b1e370ae37a2a27,
+    type: 3}
   bombForce: -2000
 --- !u!1001 &1244854962249681918
 PrefabInstance:

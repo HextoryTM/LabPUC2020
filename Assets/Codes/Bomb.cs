@@ -18,7 +18,7 @@ public class Bomb : MonoBehaviour
         Destroy(explosion, 3);
         Destroy(gameObject);
         RaycastHit[] hits;
-        hits=Physics.SphereCastAll(transform.position, 5, Vector3.up, 10);
+        hits=Physics.SphereCastAll(transform.position, 5, Vector3.up, 5);
 
         if (hits.Length > 0)
         {
@@ -26,9 +26,12 @@ public class Bomb : MonoBehaviour
             {
                 if (hit.rigidbody)
                 {
-                    hit.rigidbody.isKinematic = false;
-                    hit.rigidbody.AddExplosionForce(bombForce, transform.position, 10);
-                    hit.collider.gameObject.SendMessage("GetDamage", SendMessageOptions.DontRequireReceiver);
+                    if (hit.transform.tag != "Player")
+                    {
+                        hit.rigidbody.isKinematic = false;
+                        hit.rigidbody.AddExplosionForce(bombForce, transform.position, 5);
+                        hit.collider.gameObject.SendMessage("Damage", SendMessageOptions.DontRequireReceiver);
+                    }
                 }
             }
         }

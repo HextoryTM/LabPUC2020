@@ -14,6 +14,8 @@ public class ThirdCam : MonoBehaviour
     private void Awake()
     {
         fakeObject = new GameObject();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public GameObject GetReferenceObject()
@@ -44,6 +46,6 @@ public class ThirdCam : MonoBehaviour
         scrollOffset = Mathf.Clamp(scrollOffset + Input.mouseScrollDelta.y, -6, -2); //ajusta de dinstancia pelo scroll
         offset = new Vector3(0, offset.y, scrollOffset);
 
-        fakeObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0)); //aplicacao da rotacao
+        fakeObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 3, 0)); //aplicacao da rotacao
     }
 }

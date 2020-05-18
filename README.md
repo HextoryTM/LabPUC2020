@@ -1,2 +1,9 @@
 # LabPUC2020
- Proeto da puc 2020 1 sem
+ Projeto da puc 2020 1 sem
+
+COMANDOS:
+
+MOVIMENTAÇÃO> WASD
+ATAQUE> MOUSE1
+SKILLS> 1, 2, 3
+REINICIO> R

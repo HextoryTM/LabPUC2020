@@ -112,20 +112,6 @@ MonoBehaviour:
   ExplosionPrefab: {fileID: 5961628465427955386, guid: dd2ccc13402d2d844b1e370ae37a2a27,
     type: 3}
   bombForce: 2000
---- !u!64 &5647874599346043785
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5103122014794888021}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 5528b5a385dd26b45bbc7a0729da9522, type: 3}
 --- !u!1001 &5103960599984626495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,12 +181,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216ec6e5fef3e254d86b21071e614d66, type: 3}
---- !u!1 &5103122014794888021 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1415556611663978, guid: 216ec6e5fef3e254d86b21071e614d66,
-    type: 3}
-  m_PrefabInstance: {fileID: 5103960599984626495}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5099416203200854915 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4553195561164988, guid: 216ec6e5fef3e254d86b21071e614d66,

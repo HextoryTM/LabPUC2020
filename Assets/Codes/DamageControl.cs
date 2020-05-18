@@ -16,12 +16,6 @@ public class DamageControl : MonoBehaviour, IDamagable
         timesHitted = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void GetDamage() 
     {
         Destroy(gameObject, 3);
@@ -71,5 +65,4 @@ public class DamageControl : MonoBehaviour, IDamagable
 
         render.enabled = true;
     }
-    
 }
