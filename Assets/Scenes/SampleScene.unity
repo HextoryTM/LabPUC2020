@@ -3698,11 +3698,6 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 60
       objectReference: {fileID: 0}
-    - target: {fileID: 1600905164, guid: 052ccbd9375e2cf4eb3d4c2d82e08191, type: 3}
-      propertyPath: skillsPrefab.Array.data[2]
-      value: 
-      objectReference: {fileID: 3076110161118753512, guid: 50fc8ebda63557647b31ee3f8afb92c8,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 052ccbd9375e2cf4eb3d4c2d82e08191, type: 3}
 --- !u!1001 &237149571
