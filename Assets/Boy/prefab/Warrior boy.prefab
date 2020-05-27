@@ -66,7 +66,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   serializedVersion: 2
-  m_Mass: 60
+  m_Mass: 70
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -103,8 +103,9 @@ MonoBehaviour:
   state: 0
   anim: {fileID: 95798908753882946}
   rb: {fileID: 1600905162}
-  moveForce: 70
-  speed: 25
+  jumpForce: 5000
+  moveForce: 20000
+  dragForce: 300
   weaponSlot: {fileID: 642680678376012588}
   skillsPrefab:
   - {fileID: 3076110161118753512, guid: ce6ef4f0f488daa46ab35f042a2204fe, type: 3}
@@ -123,6 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handPosition: {fileID: 5006059804869785569}
+  weaponPrefabs:
+  - {fileID: 3182965742544135867, guid: 30150718cf188f649a70046dc17b4079, type: 3}
+  - {fileID: 4723658199415789280, guid: 2cf0de8eb2c144e439473be9318006d2, type: 3}
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0

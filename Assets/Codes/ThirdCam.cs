@@ -43,7 +43,7 @@ public class ThirdCam : MonoBehaviour
 
         transform.LookAt(player.transform.position + lookOffset); //olhar para o jogador
 
-        scrollOffset = Mathf.Clamp(scrollOffset + Input.mouseScrollDelta.y, -6, -2); //ajusta de dinstancia pelo scroll
+        scrollOffset = Mathf.Clamp(scrollOffset + Input.mouseScrollDelta.y, -7, -2); //ajusta de dinstancia pelo scroll
         offset = new Vector3(0, offset.y, scrollOffset);
 
         fakeObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 3, 0)); //aplicacao da rotacao

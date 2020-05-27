@@ -18,10 +18,17 @@ public class ThirdWalk : MonoBehaviour
     public Animator anim;
     public Rigidbody rb;
 
+    //Jump
+    public float jumpForce = 1000;
+    float jumpTime = .5f;
+    bool jumpPressed;
+
+    //Movement
     public Vector3 move { get; private set; }
-    public float moveForce = 50f;
-    public float speed = 20f;
+    public float moveForce = 10000f;
+    public float dragForce = 400f;
     private Vector3 direction;
+
     private GameObject camRefObj;
     public int vidas { get; private set; }
 
@@ -29,6 +36,12 @@ public class ThirdWalk : MonoBehaviour
     private Collider weaponColl;
     private GameManager gm;
     private bool notDead = true;
+
+    //ComboControl
+    private int comboNum = -1;
+    private bool attacking = false;
+    private bool combo1, combo2;
+    private bool maxComboControl = false;
 
     //Skills
     public GameObject[] skillsPrefab;
@@ -40,11 +53,14 @@ public class ThirdWalk : MonoBehaviour
 
     private void Awake()
     {
-        vidas = 5;
+        vidas = 7;
         holdDur = 3f; //hold to reset level timer
     }
     void Start()
     {
+        if (CommonStatus.lastPosition.magnitude > 1 && SceneManager.GetActiveScene().name == "MainScene")
+            transform.position = (CommonStatus.lastPosition - (Vector3.forward*2));
+
         weaponColl = FindWeaponColl();
         if (weaponColl != null)
             weaponColl.enabled = false;
@@ -64,30 +80,57 @@ public class ThirdWalk : MonoBehaviour
         {
             direction = move;
         }
-        transform.forward = Vector3.Lerp(transform.forward, direction, Time.fixedDeltaTime * 10);
+        transform.forward = Vector3.Lerp(transform.forward, direction, Time.fixedDeltaTime * 20);
 
         if (notDead)
         {
-            //rb.AddForce(move * (moveForce / (rb.velocity.magnitude + 1))); //* speed);
-            rb.AddForce(move * moveForce * speed);
+            rb.AddForce(move * (moveForce / (rb.velocity.magnitude + 1))); //reduz a força de movimento de acordo com a velocidade pra ter muita força de saida mas pouca velocidade. 
 
             Vector3 velocityDragWoY = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.AddForce(-rb.velocity * 200);
+            rb.AddForce(-velocityDragWoY * dragForce);
         }
+
+        
     }
 
     private void Update()
     {
+        //Ground Distance
+        if (Physics.Raycast(transform.position + Vector3.up * .5f, Vector3.down, out RaycastHit hit, 65279))
+        {
+            anim.SetFloat("GroundDistance", hit.distance);
+        }
+
         if (notDead)
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                StartCoroutine(Attack());
+                if (!combo2)
+                {
+                    if (combo1 && attacking)
+                    {
+                        comboNum = 2;
+                        combo2 = true;
+                        StartCoroutine(Attack());
+                    }
+                    else
+                    {
+                        comboNum = 1;
+                        combo1 = true;
+                        StartCoroutine(Attack());
+                    }
+
+                    comboNum = -1;
+                }
             }
 
             if (Input.GetButtonDown("Jump"))
             {
                 StartCoroutine(Jump());
+            }
+            if (Input.GetButtonUp("Jump"))
+            {
+                jumpTime = 0;
             }
 
             if (Input.GetButtonDown("Skill1"))
@@ -167,29 +210,30 @@ public class ThirdWalk : MonoBehaviour
     {
         //equivalente ao Start
         state = States.Jump;
-        rb.AddForce(Vector3.up * 1000, ForceMode.Impulse);
+        jumpTime = 0.5f;
 
-        //
+        //checa se esta no chao
+        if (Physics.Raycast(transform.position + Vector3.up * .5f, Vector3.down, out RaycastHit hit, 65279))
+        {
+            if (hit.distance > 0.6)
+            {
+                StartCoroutine(Idle());
+            }
+            Debug.DrawLine(transform.position, hit.point);
+        }
+
         while (state == States.Jump)
         {
             //equivalente ao Update
-            if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 65279))
-            {
-                anim.SetFloat("GroundDistance", hit.distance);
+            rb.AddForce(Vector3.up * jumpForce * jumpTime); //adiciona forca eqt o tempo diminui
+            jumpTime -= Time.fixedDeltaTime;
 
-                if(hit.distance < 0.2 && rb.velocity.y <= 0)
-                {
-                    StartCoroutine(Idle());
-                }
-                Debug.DrawLine(transform.position, hit.point);
-            }
-            else
+            if(jumpTime < 0)
             {
-                anim.SetFloat("GroundDistance", 3);
+                StartCoroutine(Idle());
             }
-
             //
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
         //saida do estado
     }
@@ -197,6 +241,10 @@ public class ThirdWalk : MonoBehaviour
     IEnumerator Attack()
     {
         //equivalente ao Start
+        bool onCombo = combo2; //no inicio do Attack
+        int tempComboNum = comboNum; //no inicio do Attack
+        attacking = true;
+
         weaponColl = FindWeaponColl();
         if (weaponColl != null)
             weaponColl.enabled = true;
@@ -204,11 +252,34 @@ public class ThirdWalk : MonoBehaviour
         state = States.Attack;
         anim.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(0.5f); //tempo do ataque
+        float tempTimer = 0.75f; //tempo combo2
+        if (!onCombo)
+            tempTimer = 0.6f; //tempo combo1
+
+        yield return new WaitForSeconds(tempTimer); //tempo do ataque
 
         //saida do estado
-        weaponColl.enabled = false;
-        StartCoroutine(Idle());
+
+        if (onCombo && tempComboNum == 2) //tem segundo combo e este é o segundo attack
+        {
+            combo2 = false;
+            attacking = false;
+            StartCoroutine(Idle());
+            weaponColl.enabled = false;
+            //fim attack2
+        }
+        else if (!onCombo && tempComboNum == 1) //nao tem segundo combo
+        {
+            combo1 = false;
+            attacking = false;
+            StartCoroutine(Idle());
+            weaponColl.enabled = false;
+        }
+        else //tem segundo combo e esse é o primeiro attack
+        {
+            combo1 = false;
+        }
+        
     }
 
     IEnumerator Hitted()
@@ -297,8 +368,16 @@ public class ThirdWalk : MonoBehaviour
     {
         if (state != States.Die)
         {
-            StopAllCoroutines();
+            
             StartCoroutine(Hitted());
         }
+    }
+
+    void FinishAllCoroutines()
+    {
+        combo1 = false;
+        combo2 = false;
+        attacking = false;
+        StopAllCoroutines();
     }
 }
