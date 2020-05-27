@@ -14,20 +14,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 7aea163612c457f4e82169d6549fc1eb, type: 3}
---- !u!64 &7452725486061579004
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7515914008175983577}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300004, guid: 7aea163612c457f4e82169d6549fc1eb, type: 3}
 --- !u!64 &2759028505348625235
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -42,6 +28,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300150, guid: 7aea163612c457f4e82169d6549fc1eb, type: 3}
+--- !u!64 &7452725486061579004
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515914008175983577}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300004, guid: 7aea163612c457f4e82169d6549fc1eb, type: 3}
 --- !u!64 &8103190105314387143
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backToWorld: 0
-  sceneToLoad: Srine01
+  sceneToLoad: 
 --- !u!1001 &7515914008176082133
 PrefabInstance:
   m_ObjectHideFlags: 0

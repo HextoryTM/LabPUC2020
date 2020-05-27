@@ -15,12 +15,17 @@ public class Srine : MonoBehaviour
             if(!backToWorld)
                 CommonStatus.lastPosition = other.transform.position;
 
-            if(backToWorld)
+            if (backToWorld)
             {
                 SceneManager.LoadScene("MainScene");
             }
             else
-                SceneManager.LoadScene(sceneToLoad);
+            {
+                if (sceneToLoad != "")
+                {
+                    SceneManager.LoadScene(sceneToLoad);
+                }
+            }
         }
     }
 }

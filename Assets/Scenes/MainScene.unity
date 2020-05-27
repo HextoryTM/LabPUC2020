@@ -6857,6 +6857,7 @@ Transform:
   - {fileID: 112082118}
   - {fileID: 1945598352}
   - {fileID: 2035093259}
+  - {fileID: 2144608895}
   - {fileID: 1554548447}
   - {fileID: 1149295393}
   - {fileID: 536829709}
@@ -6867,9 +6868,9 @@ Transform:
   - {fileID: 1117587661}
   - {fileID: 1194029958}
   - {fileID: 541672127}
-  - {fileID: 76196798}
-  - {fileID: 851963712}
   - {fileID: 317114730}
+  - {fileID: 851963712}
+  - {fileID: 76196798}
   - {fileID: 628644736}
   - {fileID: 1163960087}
   - {fileID: 1447668344}
@@ -6897,7 +6898,6 @@ Transform:
   - {fileID: 679688291}
   - {fileID: 843776182}
   - {fileID: 1544388166}
-  - {fileID: 2144608895}
   m_Father: {fileID: 59344006}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8656,11 +8656,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2041006910}
     m_Modifications:
-    - target: {fileID: 4990828689451706499, guid: a5dda618777cd4740a0da2ae988d2af0,
-        type: 3}
-      propertyPath: sceneToLoad
-      value: Srine01
-      objectReference: {fileID: 0}
     - target: {fileID: 8216617127033748757, guid: a5dda618777cd4740a0da2ae988d2af0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13665,11 +13660,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2041006910}
     m_Modifications:
-    - target: {fileID: 4990828689451706499, guid: a5dda618777cd4740a0da2ae988d2af0,
-        type: 3}
-      propertyPath: sceneToLoad
-      value: Srine01
-      objectReference: {fileID: 0}
     - target: {fileID: 8216617127033748757, guid: a5dda618777cd4740a0da2ae988d2af0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17947,7 +17937,7 @@ Transform:
   - {fileID: 232532784}
   - {fileID: 617024208}
   m_Father: {fileID: 433224327}
-  m_RootOrder: 66
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2144854234 stripped
 GameObject:
