@@ -8,6 +8,10 @@ public class PlayerCanvas : MonoBehaviour
     public Text vidaText;
     public Text inimigosText;
 
+    public GameObject skillPanel;
+    public Image[] skills;
+    public Sprite[] allSkillsImg;
+
     private void Start()
     {
         FindReference();
@@ -20,6 +24,8 @@ public class PlayerCanvas : MonoBehaviour
 
     void Atualizar()
     {
+        SetSkillsImage();
+
         if (playerWalk != null && vidaText != null)
         {
             vidaText.text = "Vidas: " + playerWalk.vidas;
@@ -39,5 +45,18 @@ public class PlayerCanvas : MonoBehaviour
     {
         playerWalk = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdWalk>();
         iaController = GameObject.FindGameObjectWithTag("IAController").GetComponent<IAController>();
+    }
+
+    void SetSkillsImage()
+    {
+        for (int i = 0; i < skills.Length; i++)
+        {
+            skills[i].sprite = getSkillSprite(i);
+        }
+    }
+
+    private Sprite getSkillSprite(int index)
+    {
+        return allSkillsImg[index];
     }
 }

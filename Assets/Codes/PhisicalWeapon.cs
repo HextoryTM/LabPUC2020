@@ -5,7 +5,7 @@ using UnityEngine;
 public class PhisicalWeapon : MonoBehaviour
 {
     public bool canDamage = false; //para evitar que a arma no chao de dano no jogador
-    public bool hitting = true; //verificacao de seguranca para hittar apenas uma vez, e nao muitas em um so ataque. O seu valor e alterado na hora do ataque.
+    public bool hitting = false; //verificacao de seguranca para hittar apenas uma vez, e nao muitas em um so ataque. O seu valor e alterado na hora do ataque.
 
     private void OnCollisionEnter(Collision collision)
     {

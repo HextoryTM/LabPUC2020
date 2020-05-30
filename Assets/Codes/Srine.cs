@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Srine : MonoBehaviour
 {
+    public bool unlocked = false;
     public bool backToWorld = false;
     public string sceneToLoad;
 
@@ -12,18 +13,21 @@ public class Srine : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(!backToWorld)
-                CommonStatus.lastPosition = other.transform.position;
+            if (unlocked)
+            {
+                if (!backToWorld)
+                    CommonStatus.lastPosition = other.transform.position;
 
-            if (backToWorld)
-            {
-                SceneManager.LoadScene("MainScene");
-            }
-            else
-            {
-                if (sceneToLoad != "")
+                if (backToWorld)
                 {
-                    SceneManager.LoadScene(sceneToLoad);
+                    SceneManager.LoadScene("MainScene");
+                }
+                else
+                {
+                    if (sceneToLoad != "")
+                    {
+                        SceneManager.LoadScene(sceneToLoad);
+                    }
                 }
             }
         }

@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3036344838769019953
 Transform:
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1cf2134664ced458dd8729b1ae134b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocked: 0
   backToWorld: 1
   sceneToLoad: MainScene
 --- !u!64 &8622340523964752636
@@ -149,7 +150,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7506206850317706938
 Transform:
@@ -178,6 +179,18 @@ PrefabInstance:
     - target: {fileID: 100000, guid: b91076b37db0fcb4899952b51d3c6280, type: 3}
       propertyPath: m_Name
       value: Arc4 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b91076b37db0fcb4899952b51d3c6280, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b91076b37db0fcb4899952b51d3c6280, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: b91076b37db0fcb4899952b51d3c6280, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b91076b37db0fcb4899952b51d3c6280, type: 3}
       propertyPath: m_LocalPosition.x
@@ -256,9 +269,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7506206850317706938}
     m_Modifications:
+    - target: {fileID: 100000, guid: 8900b053e635f514499cb699d023bda6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 8900b053e635f514499cb699d023bda6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 8900b053e635f514499cb699d023bda6, type: 3}
       propertyPath: m_Name
       value: Wall (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 8900b053e635f514499cb699d023bda6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 8900b053e635f514499cb699d023bda6, type: 3}
       propertyPath: m_LocalPosition.x

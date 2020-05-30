@@ -11,11 +11,10 @@ public class IAWalk : MonoBehaviour
     public Vector3 patrolPos;
     public float stoppedTime;
 
-    public Collider attackColl;
-    private bool hitting;
+    public bool hitting = false;
     public GameObject player;
 
-    private bool oneHit = false;
+    public bool oneHit = false;
 
     public enum IAState
     {

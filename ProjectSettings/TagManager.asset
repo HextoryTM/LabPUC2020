@@ -9,6 +9,7 @@ TagManager:
   - IAController
   - PlayerCanvas
   - GameManager
+  - Push
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - 
   - Player
   - Ogro
-  - 
-  - 
+  - Weapon
+  - Camera
   - 
   - 
   - 

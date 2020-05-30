@@ -41,7 +41,6 @@ public class ThirdWalk : MonoBehaviour
     private int comboNum = -1;
     private bool attacking = false;
     private bool combo1, combo2;
-    private bool maxComboControl = false;
 
     //Skills
     public GameObject[] skillsPrefab;
@@ -50,6 +49,9 @@ public class ThirdWalk : MonoBehaviour
     //Timer
     private float timer;
     private float holdDur;
+
+    //ik
+    public bool ikActive = false;
 
     private void Awake()
     {
@@ -152,7 +154,7 @@ public class ThirdWalk : MonoBehaviour
                 Vector3 tempPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
                 indexWeapon = 2;
                 GameObject myprojectile = Instantiate(skillsPrefab[indexWeapon], tempPos + transform.forward, Quaternion.identity);
-                myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 10, ForceMode.Impulse);
+                myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 25, ForceMode.Impulse);
             }
 
         }
@@ -265,6 +267,7 @@ public class ThirdWalk : MonoBehaviour
             combo2 = false;
             attacking = false;
             StartCoroutine(Idle());
+            weaponColl = FindWeaponColl(); //Caso haja uma troca de armas na hora do ataque, essa verificacao impede de desligar o collider de uma arma que ja foi dropada.
             weaponColl.enabled = false;
             //fim attack2
         }
@@ -273,6 +276,7 @@ public class ThirdWalk : MonoBehaviour
             combo1 = false;
             attacking = false;
             StartCoroutine(Idle());
+            weaponColl = FindWeaponColl(); //Caso haja uma troca de armas na hora do ataque, essa verificacao impede de desligar o collider de uma arma que ja foi dropada.
             weaponColl.enabled = false;
         }
         else //tem segundo combo e esse é o primeiro attack
@@ -379,5 +383,23 @@ public class ThirdWalk : MonoBehaviour
         combo2 = false;
         attacking = false;
         StopAllCoroutines();
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (ikActive)
+        {
+            anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+            anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+
+            if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit hit, 3, 65279))
+            {
+                if (hit.collider.CompareTag("Push"))
+                {
+                    anim.SetIKPosition(AvatarIKGoal.LeftHand, hit.point - transform.right * 0.2f);
+                    anim.SetIKPosition(AvatarIKGoal.RightHand, hit.point + transform.right * 0.2f);
+                }
+            }
+        }
     }
 }

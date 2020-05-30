@@ -26,16 +26,7 @@ public class ItemGrabber : MonoBehaviour
             other.GetComponent<PhisicalWeapon>().canDamage = false;
             if (weaponGrabbed)
             {
-                weaponGrabbed.GetComponent<PhisicalWeapon>().canDamage = false;
-
-                weaponGrabbed.transform.parent = null;
-
-                weaponGrabbed.GetComponent<Rigidbody>().isKinematic = false;
-                weaponGrabbed.transform.Translate(Vector3.right);
-
-                weaponGrabbed.gameObject.layer = default;
-                CommonStatus.weaponOnHand = -1;
-                
+                UnequipWeapon(weaponGrabbed);
             }
 
             other.gameObject.layer = transform.gameObject.layer;
@@ -62,5 +53,18 @@ public class ItemGrabber : MonoBehaviour
                 CommonStatus.weaponOnHand = i;
             }
         }
+    }
+
+    void UnequipWeapon(GameObject weapon)
+    {
+        weapon.GetComponent<PhisicalWeapon>().canDamage = false;
+        weapon.GetComponent<Collider>().enabled = true;
+        weapon.transform.parent = null;
+
+        weapon.GetComponent<Rigidbody>().isKinematic = false;
+        weapon.transform.Translate(-transform.up);
+
+        weapon.gameObject.layer = default;
+        CommonStatus.weaponOnHand = -1;
     }
 }
