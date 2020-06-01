@@ -45,6 +45,7 @@ public class ThirdWalk : MonoBehaviour
     //Skills
     public GameObject[] skillsPrefab;
     private int indexWeapon;
+    private bool canSkill = true;
 
     //Timer
     private float timer;
@@ -135,31 +136,39 @@ public class ThirdWalk : MonoBehaviour
                 jumpTime = 0;
             }
 
-            if (Input.GetButtonDown("Skill1"))
+            if (Input.GetButtonDown("Skill1") && canSkill)
             {
-                Vector3 tempPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+                canSkill = false;
                 indexWeapon = 0;
-                GameObject myprojectile = Instantiate(skillsPrefab[indexWeapon], tempPos + transform.forward, Quaternion.identity);
-                myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 10,ForceMode.Impulse);
+                StartCoroutine(Skill());
             }
-            if (Input.GetButtonDown("Skill2"))
+            if (Input.GetButtonDown("Skill2") && canSkill)
             {
-                Vector3 tempPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+                canSkill = false;
                 indexWeapon = 1;
-                GameObject myprojectile = Instantiate(skillsPrefab[indexWeapon], tempPos + transform.forward, Quaternion.identity);
-                myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 10, ForceMode.Impulse);
+                StartCoroutine(Skill());
             }
-            if (Input.GetButtonDown("Skill3"))
+            if (Input.GetButtonDown("Skill3") && canSkill)
             {
-                Vector3 tempPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+                canSkill = false;
                 indexWeapon = 2;
-                GameObject myprojectile = Instantiate(skillsPrefab[indexWeapon], tempPos + transform.forward, Quaternion.identity);
-                myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 25, ForceMode.Impulse);
+                StartCoroutine(Skill());
             }
 
         }
 
         ResetTimer();
+    }
+
+    IEnumerator Skill()
+    {
+        anim.SetTrigger("Skill1");
+
+        yield return new WaitForSeconds(0.5f);
+        Vector3 tempPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        GameObject myprojectile = Instantiate(skillsPrefab[indexWeapon], tempPos + transform.forward, Quaternion.identity);
+        myprojectile.GetComponent<Rigidbody>().AddForce(transform.forward * 15, ForceMode.Impulse);
+        canSkill = true;
     }
 
     IEnumerator Idle()
@@ -283,30 +292,28 @@ public class ThirdWalk : MonoBehaviour
         {
             combo1 = false;
         }
-        
     }
 
     IEnumerator Hitted()
     {
         //equivalente ao Start
         anim.SetTrigger("Hitted");
-
-        if(vidas > 0)
-            vidas--;
-
-        if(vidas <= 0)
-        {
-            yield return new WaitForEndOfFrame();
-            state = States.Die;
-            StartCoroutine(Die());
-        }
-
         state = States.Hitted;
 
-        yield return new WaitForEndOfFrame();
+        if (vidas > 0)
+            vidas--;
 
-        //saida do estado
-        StartCoroutine(Idle());
+        //Saida do estado
+        if (vidas <= 0)
+        {
+            yield return new WaitForEndOfFrame();
+            StartCoroutine(Die());
+        }
+        else
+        {
+            yield return new WaitForEndOfFrame();
+            StartCoroutine(Idle());
+        }
     }
 
     IEnumerator Die()
@@ -372,7 +379,6 @@ public class ThirdWalk : MonoBehaviour
     {
         if (state != States.Die)
         {
-            
             StartCoroutine(Hitted());
         }
     }

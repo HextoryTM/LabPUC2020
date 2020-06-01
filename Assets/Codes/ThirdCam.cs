@@ -5,9 +5,10 @@ using UnityEngine;
 public class ThirdCam : MonoBehaviour
 {
     public GameObject player;
-    public Vector3 offset, lookOffset;
-    public float scrollOffset;
+    public Vector3 ajust;
+    public Vector3 ajustlook;
 
+    float zajust = -3;
     GameObject fakeObject;
     // Start is called before the first frame update
 
@@ -26,26 +27,33 @@ public class ThirdCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fakeObject.transform.position = Vector3.Lerp(fakeObject.transform.position, player.transform.position, Time.deltaTime * 5);
+        fakeObject.transform.position = Vector3.Lerp(fakeObject.transform.position, player.transform.position, Time.deltaTime * 10); //interpolacao do objeto falso
 
-        Vector3 dirBack = transform.position - (player.transform.position + lookOffset); //calcular a distancia para tras da camera
-        float distanceToHit = 10;
-        if (Physics.Raycast(player.transform.position + lookOffset, dirBack, out RaycastHit hit, 10, 65279)) //Raycast para ver o limite da camera
+        Vector3 dirback = transform.position - (player.transform.position + ajustlook); //direcao do personagem a camera
+        float distancetohit = 10;// distancia pra armazenar
+
+        //raycast pra testar a colisao atraz da camera
+        if (Physics.Raycast(player.transform.position + ajustlook, dirback, out RaycastHit hit, 10, 65279))
         {
-            distanceToHit = hit.distance;
-            Debug.DrawLine(player.transform.position + lookOffset, hit.point);
+            distancetohit = hit.distance;
+            Debug.DrawLine(player.transform.position + ajustlook, hit.point);
         }
+        //vetor de distanciamento
+        Vector3 backvector = (fakeObject.transform.forward * ajust.z);
+        //limite de tamanho do vetor 
+        backvector = Vector3.ClampMagnitude(backvector, distancetohit);
 
-        Vector3 backVector = (fakeObject.transform.forward * offset.z); //vetor de distanciamento
-        backVector = Vector3.ClampMagnitude(backVector, distanceToHit - 0.5f); //limite de tamanho do vetor
+        //aplicacao da posicao da camera
+        transform.position = fakeObject.transform.position + backvector + fakeObject.transform.up * ajust.y;
 
-        transform.position = fakeObject.transform.position + backVector + fakeObject.transform.up * offset.y; //aplicacao da posicao da camera
+        //olhar para o jogador
+        transform.LookAt(player.transform.position + ajustlook);
 
-        transform.LookAt(player.transform.position + lookOffset); //olhar para o jogador
+        //ajuste de distancia pelo mouse 
+        zajust = Mathf.Clamp(zajust + Input.mouseScrollDelta.y, -7, -2);
+        ajust = new Vector3(0, ajust.y, zajust);
 
-        scrollOffset = Mathf.Clamp(scrollOffset + Input.mouseScrollDelta.y, -7, -2); //ajusta de dinstancia pelo scroll
-        offset = new Vector3(0, offset.y, scrollOffset);
-
-        fakeObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 3, 0)); //aplicacao da rotacao
+        //aplicacao da rotaçao pelo mouse na camera
+        fakeObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
     }
 }

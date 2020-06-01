@@ -210,6 +210,7 @@ public class IAWalk : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        player.SendMessage("Damage", SendMessageOptions.DontRequireReceiver);
+        if(player != null)
+            player.SendMessage("Damage", SendMessageOptions.DontRequireReceiver);
     }
 }

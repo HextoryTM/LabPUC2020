@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class IAController : MonoBehaviour
 {
+    public int iaCount = 4;
     public List<GameObject> ias;
     public bool over { get; private set; }
     public int inimigos { get; private set; }
-
-    private int iaCount = 4;
 
     private GameManager gm;
     private void Awake()
