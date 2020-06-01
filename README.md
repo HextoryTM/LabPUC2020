@@ -7,3 +7,7 @@ MOVIMENTAÇÃO> WASD
 ATAQUE> MOUSE1
 SKILLS> 1, 2, 3
 REINICIO> R
+
+
+ALUNO
+Rafael de Aquino Ferreira - RA00212876
