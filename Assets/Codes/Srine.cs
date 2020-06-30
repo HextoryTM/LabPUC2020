@@ -16,20 +16,30 @@ public class Srine : MonoBehaviour
             if (unlocked)
             {
                 if (!backToWorld)
-                    CommonStatus.lastPosition = other.transform.position;
+                {
+                    CommonStatus.lastPosition = other.transform.position - Vector3.forward * 2;
+                    CommonStatus.Vida = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdWalk>().vidas;
+                }
 
                 if (backToWorld)
                 {
-                    SceneManager.LoadScene("MainScene");
+                    StartCoroutine(MyLoadScene("MainScene"));
                 }
                 else
                 {
                     if (sceneToLoad != "")
                     {
-                        SceneManager.LoadScene(sceneToLoad);
+                        StartCoroutine(MyLoadScene(sceneToLoad));
                     }
                 }
             }
         }
+    }
+
+    IEnumerator MyLoadScene(string scene)
+    {
+        Camera.main.SendMessage("CallFadeOut");
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(scene);
     }
 }

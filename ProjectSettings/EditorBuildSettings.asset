@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: fc2e5d7523ffc8041b22a0c9023dc493
   - enabled: 1
-    path: Assets/Scenes/Srine01.unity
-    guid: 43c478b5d7f397649b7ef7f887b176bc
+    path: Assets/Scenes/Shine01.unity
+    guid: eddce2405b961f948a21133ba7a32453
+  - enabled: 1
+    path: Assets/Scenes/Shine02.unity
+    guid: 521310e3817a475418e38fbc9601cad0
+  - enabled: 1
+    path: Assets/Scenes/Shine03.unity
+    guid: e6cb193669bb5d74cbcb5ef626a12baa
   m_configObjects: {}

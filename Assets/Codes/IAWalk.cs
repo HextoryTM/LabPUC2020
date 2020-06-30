@@ -211,6 +211,6 @@ public class IAWalk : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         if(player != null)
-            player.SendMessage("Damage", SendMessageOptions.DontRequireReceiver);
+            player.SendMessage("TakeDamage", SendMessageOptions.DontRequireReceiver);
     }
 }

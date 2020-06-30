@@ -12,6 +12,7 @@ public class ThirdWalk : MonoBehaviour
         Die,
         Attack,
         Hitted,
+        Fly,
     }
 
     public States state;
@@ -56,13 +57,18 @@ public class ThirdWalk : MonoBehaviour
 
     private void Awake()
     {
-        vidas = 7;
+        vidas = 10;
         holdDur = 3f; //hold to reset level timer
     }
     void Start()
     {
         if (CommonStatus.lastPosition.magnitude > 1 && SceneManager.GetActiveScene().name == "MainScene")
-            transform.position = (CommonStatus.lastPosition - (Vector3.forward*2));
+        {
+            transform.position = (CommonStatus.lastPosition - (Vector3.forward * 2));
+            if (CommonStatus.Vida != -1)
+                SetVida(CommonStatus.Vida);
+        }
+        
 
         weaponColl = FindWeaponColl();
         if (weaponColl != null)
@@ -106,6 +112,7 @@ public class ThirdWalk : MonoBehaviour
 
         if (notDead)
         {
+            ;
             if (Input.GetButtonDown("Fire1"))
             {
                 if (!combo2)
@@ -327,6 +334,29 @@ public class ThirdWalk : MonoBehaviour
         yield return new WaitForSeconds(2f);
     }
 
+    IEnumerator Fly()
+    {
+        //equivalente ao Start
+        state = States.Fly;
+
+
+        //
+        while (state == States.Fly)
+        {
+            //equivalente ao Update
+            anim.SetFloat("Velocity", rb.velocity.magnitude);
+
+            if (rb.velocity.magnitude < 0.1)
+            {
+                StartCoroutine(Idle());
+            }
+
+            //
+            yield return new WaitForEndOfFrame();
+        }
+        //saida do estado
+    }
+
     private Collider FindWeaponColl()
     {
         if (weaponSlot)
@@ -375,12 +405,17 @@ public class ThirdWalk : MonoBehaviour
         GetComponent<Collider>().enabled = false;
     }
 
-    public void Damage()
+    public void TakeDamage()
     {
         if (state != States.Die)
         {
             StartCoroutine(Hitted());
         }
+    }
+
+    public void SetVida(int valor)
+    {
+        vidas = valor;
     }
 
     void FinishAllCoroutines()
