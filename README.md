@@ -1,13 +1,18 @@
 # LabPUC2020
- Projeto da puc 2020 1 sem
+Projeto do primeiro semestre de 2020.
 
-COMANDOS:
+## COMANDOS:
 
-MOVIMENTAÇÃO> WASD
-ATAQUE> MOUSE1
-SKILLS> 1, 2, 3
-REINICIO> R
+MOVIMENTAÇÃO: WASD
+
+ATAQUE: MOUSE1
+
+SKILLS: 1, 2, 3
+
+REINICIO: R
 
 
 ALUNO
 Rafael de Aquino Ferreira - RA00212876
+
+Projeto criado com o intuito de estudar e desenvolver um jogo no estilo Zelda, durante o curso de Jogos Digitais da PUC-SP.
